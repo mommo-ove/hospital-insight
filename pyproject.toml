@@ -1,0 +1,24 @@
+[project]
+name = "hospital-insight"
+version = "1.0.0"
+description = "Local-first hospital operations data assistant"
+requires-python = ">=3.12"
+dependencies = [
+  "fastapi>=0.115,<1",
+  "uvicorn[standard]>=0.34,<1",
+  "sqlalchemy>=2.0,<3",
+  "pydantic>=2.10,<3",
+  "openpyxl>=3.1,<4",
+  "python-multipart>=0.0.20,<1",
+  "python-dotenv>=1.0,<2",
+  "httpx>=0.28,<1",
+]
+
+[dependency-groups]
+dev = ["pytest>=8,<10", "pytest-asyncio>=0.25,<2"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+asyncio_mode = "auto"
+

@@ -1,0 +1,11 @@
+export interface Metric { id: string; label: string; unit: string; aggregation: string; description: string; aliases: string[] }
+export interface Catalog { row_count: number; months: string[]; start_month: string | null; end_month: string | null; departments: string[]; department_types: string[]; department_map: Record<string, string>; revision: number; metrics: Metric[]; aliases: Record<string, string>; mode: string }
+export interface Health { status: string; mode: string; model: string; model_configured: boolean }
+export interface Column { key: string; label: string; unit: string }
+export type DataRow = Record<string, string | number | null>;
+export interface Source { file: string; sheet: string; row: number; version: number; import_id: string; cells: Record<string, string>; values: DataRow; sha256: string }
+export interface QueryPlan { metrics: string[]; departments: string[]; department_types: string[]; start_month: string; end_month: string; group_by: string[]; comparison: string; unit: string; time_explicit: boolean }
+export interface Answer { id: string; conversation_id: string; question: string; status: 'success' | 'clarification' | 'no_data' | 'unsupported' | 'error'; answer: string; rows: DataRow[]; columns: Column[]; chart: { type: 'bar' | 'line'; dimensions: string[]; metrics: Column[]; rows: DataRow[] } | null; sources: Source[]; sql: { label: string; statement: string; parameters: object }[]; warnings: string[]; choices: string[]; plan: QueryPlan | null; mode: string; model: string; revision?: number; scope?: string; actual_months?: string[]; metric_notes?: string[] }
+export interface Conversation { id: string; title: string; updated_at: string }
+export interface ImportPreview { id: string; filename: string; sheet: string; new: number; duplicates: number; conflict_count: number; conflicts: { month: string; department: string; changes: { field: string; before: unknown; after: unknown }[] }[]; errors: string[]; error_count: number; row_count: number; base_revision: number; can_commit: boolean; sample: { month: string; department: string; total_revenue: number }[] }
+export interface ImportHistory { id: string; filename: string; created_at: string; status: string; revision: number; summary: ImportPreview }

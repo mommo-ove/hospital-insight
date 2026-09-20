@@ -1,0 +1,2 @@
+"""Hospital Insight application."""
+

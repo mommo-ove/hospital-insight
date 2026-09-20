@@ -1,0 +1,20 @@
+name: hospital-insight
+
+services:
+  hospital-insight:
+    build: .
+    ports:
+      - "127.0.0.1:8000:8000"
+    environment:
+      LLM_MODE: ${LLM_MODE:-demo}
+      LLM_BASE_URL: ${LLM_BASE_URL:-}
+      LLM_MODEL: ${LLM_MODEL:-}
+      LLM_API_KEY: ${LLM_API_KEY:-}
+      LLM_TIMEOUT_SECONDS: ${LLM_TIMEOUT_SECONDS:-30}
+      SEED_EXCEL: /app/院管数据.xlsx
+    volumes:
+      - hospital-data:/app/data
+    restart: unless-stopped
+
+volumes:
+  hospital-data:
